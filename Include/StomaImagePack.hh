@@ -80,12 +80,12 @@ enum class GroupType{
 	ENDOF
 };
 struct Glyph {
-	std::string Name = "Unnamed Glyph";
+	std::string Name = "";
 	StomaImagePack::Resolution Size = {64, 64};
 	StomaImagePack::Resolution Offset = {0, 0};
 };
 struct GlyphGroup{
-	std::string Name = "Unnamed Group";
+	std::string Name = "";
 	StomaImagePack::GroupType Type;
 	std::vector<StomaImagePack::Glyph> Glyphs{};
 };
