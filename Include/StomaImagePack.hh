@@ -76,6 +76,7 @@ enum class GroupType{
 	REGULAR,
 	FONT,
 	NORMALMAP,
+	PALET,
 
 	ENDOF
 };
@@ -243,7 +244,8 @@ Image ReadStimpac(std::string NAM) {
 	// read file into char vector
 	ReadFile.open(NAM + ".stimpac",std::ios::binary);
 	if(!ReadFile.is_open()) {
-		printf("could not read %s.\n", NAM.c_str());
+
+		printf("could not read '%s.%s'.\n", NAM.c_str(),"stimpac");
 		exit(1);
 	}
 	while(ReadFile.get(HoldChar)) {
