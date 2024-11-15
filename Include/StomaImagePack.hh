@@ -325,7 +325,7 @@ Image ReadStimpac(std::string NAM) {
 					for(uint32_t i=0;i<4;i++) {CharVoodoo[i] = CharVector[CurrentPosition];CurrentPosition++;}
 					ReturnImage.Groups[z].Glyphs[q].Name.resize(CharCount);
 					// Name				| CharCount
-					for (uint32_t i=0;i<ReturnImage.Groups[0].Glyphs[q].Name.size();i++) {
+					for (uint32_t i=0;i<ReturnImage.Groups[z].Glyphs[q].Name.size();i++) {
 						ReturnImage.Groups[z].Glyphs[q].Name[i]=CharVector[CurrentPosition];CurrentPosition++;
 					}
 					// Size				| 1
