@@ -40,7 +40,6 @@ GlyphGroupCount				| uint32	| 4
 GlyphGroupArray				| GlyphGroupCount
 	GroupNameCharCount		| uint32	| 4
 		GroupNameChar		| CharCount
-	GroupType				| uint32	| 4
 	GlyphCount				| uint32	| 4
 	Glyph Array				| GlyphCount
 		CharCount			| uint32	| 4
@@ -72,14 +71,6 @@ struct Colour {
 	uint8_t A = 0;
 };
 
-enum class GroupType{
-	REGULAR,
-	FONT,
-	NORMALMAP,
-	PALET,
-
-	ENDOF
-};
 struct Glyph {
 	std::string Name = "";
 	StomaImagePack::Resolution Size = {64, 64};
@@ -87,7 +78,6 @@ struct Glyph {
 };
 struct GlyphGroup{
 	std::string Name = "";
-	StomaImagePack::GroupType Type;
 	std::vector<StomaImagePack::Glyph> Glyphs{};
 };
 struct Image {
@@ -185,10 +175,6 @@ void WriteStimpac(Image IMG, std::string NAM) {
 		for(uint32_t i=0;i<4;i++){CharVector.push_back(CharVoodoo[i]);}
 		// GroupName		| CharCount
 		for(uint32_t i=0;i<GlyphGroupCharCount;i++){CharVector.push_back(IMG.Groups[gr].Name[i]);}
-		// GroupType		| uint32	| 4
-		uint32_t GroupType = (uint32_t)IMG.Groups[gr].Type;
-		CharVoodoo = (uint8_t*)&GroupType;
-		for(uint32_t i=0;i<4;i++){CharVector.push_back(CharVoodoo[i]);}
 		// GlyphCount		| uint32	| 4
 		uint32_t GlyphCount = IMG.Groups[gr].Glyphs.size();
 		CharVoodoo = (uint8_t*)&GlyphCount;
@@ -328,10 +314,6 @@ Image ReadStimpac(std::string NAM) {
 				for (uint32_t i=0;i<ReturnImage.Groups[z].Name.size();i++) {
 					ReturnImage.Groups[z].Name[i] = CharVector[CurrentPosition];CurrentPosition++;
 				}
-				// GroupType				| uint32	| 4
-				CharVoodoo = (uint8_t*)&GroupTypeData;
-				for(uint32_t i=0;i<4;i++) {CharVoodoo[i] = CharVector[CurrentPosition];CurrentPosition++;}
-				ReturnImage.Groups[z].Type = (GroupType)GroupTypeData;
 				// GlyphCount				| uint32	| 4
 				CharVoodoo = (uint8_t*)&GlyphCount;
 				for(uint32_t i=0;i<4;i++) {CharVoodoo[i] = CharVector[CurrentPosition];CurrentPosition++;}
